@@ -7,10 +7,12 @@
 // +----------------------------------------------------------------------
 // | Author: 阶级娃儿 <262877348@qq.com> 群：304104682
 // +----------------------------------------------------------------------
-namespace typelist;
+
+namespace think;
 use think\Db;
 
-class Tree {
+class Tree
+{
 	//分类的数据表模型
 	private $table;
 	//分类的数据表模型
@@ -30,7 +32,8 @@ class Tree {
 	 * 初始化对象
 	 * @param unknown $config
 	 */
-	public function __construct($table = '', $fields = []) {
+	public function __construct($table = '', $fields = [])
+	{
 		if (empty($table)) {
 			$this->error = "参数有误！";
 			exit;
@@ -101,7 +104,8 @@ class Tree {
 	 * @param  [array,string] 	$condition 	[查询条件]
 	 * @param  [string] 		$orderby   	[排序]
 	 */
-	public function _findAllCat($pid = 0, $is_where = false) {
+	public function _findAllCat($pid = 0, $is_where = false)
+	{
 		if ($is_where) {
 			$result = Db::name($this->table)->where(['pid'=>$pid], true)->field($this->fields)->select();
 		} else {
@@ -115,7 +119,8 @@ class Tree {
 	 * @param  [array,string] 	$condition 	[查询条件]
 	 * @param  [string] 		$orderby   	[排序]
 	 */
-	public function _getTypeCat($id = 0) {
+	public function _getTypeCat($id = 0)
+	{
 		if ($id) {
 			return Db::name($this->table)->where(['id'=>$id])->field($this->fields)->find();
 		}
