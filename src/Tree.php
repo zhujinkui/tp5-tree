@@ -15,6 +15,8 @@ class Tree
 {
 	//分类的数据表模型
 	private $table;
+	//初始化提示
+	private $init_option;
 	//分类的数据表模型
 	private $rawList    = [];
 	//原始的分类数据
@@ -39,8 +41,8 @@ class Tree
 			exit;
 		}
 
-		$this->table  = $table;
-		$this->fields = $fields;
+		$this->table       = $table;
+		$this->fields      = $fields;
 	}
 
 	/**
@@ -75,13 +77,13 @@ class Tree
 	 * @param  string  $selected_str [初始化选中字符串]
 	 * @return string
 	 */
-	public function viewList($name = 'cate', $pid = 0, $selected = 0, $str = '')
+	public function viewList($name = 'cate', $pid = 0, $selected = 0, $init_option = '作为顶级栏目', $style_class = '', $nullable = 'false', $star = 'true', $alt_error = '请选择店铺类型', $str = '')
 	{
 		//获取所有信息
 		$result = $this->getSelectList($pid);
 
-		$str .= "<select name='".$name."'>";
-		$str .= "<option value='0-1'>&nbsp;≡ 作为顶级栏目 ≡</option>";
+		$str .= "<select id='".$name."' name='".$name."' class='".$style_class."' nullable='".$nullable."', star='".$star."', alt_error='".$alt_error."'>";
+		$str .= "<option value='0-1'>&nbsp;≡ ".$init_option." ≡</option>";
 		foreach ($result as $key => $value) {
 			$level = $value['level'] + 1;
 			if ($value['level'] == $this->level) {
