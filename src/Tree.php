@@ -77,23 +77,25 @@ class Tree
 	 * @param  string  $selected_str [初始化选中字符串]
 	 * @return string
 	 */
-	public function viewList($name = 'cate', $pid = 0, $selected = 0, $init_option = '作为顶级栏目', $style_class = '', $nullable = 'false', $star = 'true', $alt_error = '请选择店铺类型', $str = '')
+	public function viewList($name = 'cate', $pid = 0, $selected = 0, $init_option = '作为顶级栏目', $style_class = '', $nullable = 'false', $star = 'true', $alt_error = '请选择店铺类型', $is_read = false)
 	{
 		//获取所有信息
 		$result = $this->getSelectList($pid);
 
-		$str .= "<select id='".$name."' name='".$name."' class='".$style_class."' nullable='".$nullable."', star='".$star."', alt_error='".$alt_error."'>";
-		$str .= "<option value='0-1'>&nbsp;≡ ".$init_option." ≡</option>";
+		$str = '';
+		$str .= "<select id='".$name."' name='".$name."' class='".$style_class."' nullable='".$nullable."' star='".$star."' alt='".$alt_error."'>";
+		$is_read ? $str .= "<option value=''>&nbsp;≡ ".$init_option." ≡</option>" : $str .= "<option value='0-0-1'>&nbsp;≡ ".$init_option." ≡</option>" ;
+
 		foreach ($result as $key => $value) {
 			$level = $value['level'] + 1;
-			if ($value['level'] == $this->level) {
-				$str .= "<option disabled='disabled' class='disabled' value='".$value['id'].'-'.$level."'>{$value['name']}</option>";
+			if ($value['pid'] == $pid) {
+				$str .= "<option disabled='disabled' class='disabled' value='".$value['id'].'-'.$value['pid'].'-'.$level."'>{$value['name']}</option>";
 			} else {
 				//return $selected;
 				if ($value['id'] == $selected) {
-					$str .= "<option selected='selected' value='".$value['id'].'-'.$level."'>{$value['name']}</option>";
+					$str .= "<option selected='selected' value='".$value['id'].'-'.$value['pid'].'-'.$level."'>{$value['name']}</option>";
 				} else {
-					$str .= "<option value='".$value['id'].'-'.$level."'>{$value['name']}</option>";
+					$str .= "<option value='".$value['id'].'-'.$value['pid'].'-'.$level."'>{$value['name']}</option>";
 				}
 			}
 		}
