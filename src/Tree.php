@@ -83,24 +83,39 @@ class Tree
 		$result = $this->getSelectList($pid);
 
 		$str = '';
-		$str .= "<select id='".$name."' name='".$name."' class='".$style_class."' nullable='".$nullable."' star='".$star."' alt='".$alt_error."'>";
-		$is_read ? $str .= "<option value=''>&nbsp;≡ ".$init_option." ≡</option>" : $str .= "<option value='0-0-1'>&nbsp;≡ ".$init_option." ≡</option>" ;
+		$str .= "<select id='".$name."' name='".$name."' style='margin-right:10px !important;' nullable='".$nullable."' star='".$star."' alt='".$alt_error."'>";
+		$str .= $is_read ? "<option value=''>&nbsp;≡ ".$init_option." ≡</option>" : "<option value='0-0-1'>&nbsp;≡ ".$init_option." ≡</option>" ;
 
 		foreach ($result as $key => $value) {
 			$level = $value['level'] + 1;
-			if ($value['pid'] == $pid) {
-				$str .= "<option disabled='disabled' class='disabled' value='".$value['id'].'-'.$value['pid'].'-'.$level."'>{$value['name']}</option>";
+			//return $selected;
+			if ($value['id'] == $selected) {
+				$str .= "<option selected='selected' value='".$value['id'].'-'.$value['pid'].'-'.$level."'>{$value['name']}</option>";
 			} else {
-				//return $selected;
-				if ($value['id'] == $selected) {
-					$str .= "<option selected='selected' value='".$value['id'].'-'.$value['pid'].'-'.$level."'>{$value['name']}</option>";
-				} else {
-					$str .= "<option value='".$value['id'].'-'.$value['pid'].'-'.$level."'>{$value['name']}</option>";
-				}
+				$str .= "<option value='".$value['id'].'-'.$value['pid'].'-'.$level."'>{$value['name']}</option>";
 			}
 		}
 
 		return $str .= "</select>";
+		// $str = '';
+		// $str .= "<select id='".$name."' name='".$name."' class='".$style_class."' nullable='".$nullable."' star='".$star."' alt='".$alt_error."'>";
+		// $is_read ? $str .= "<option value=''>&nbsp;≡ ".$init_option." ≡</option>" : $str .= "<option value='0-0-1'>&nbsp;≡ ".$init_option." ≡</option>" ;
+
+		// foreach ($result as $key => $value) {
+		// 	$level = $value['level'] + 1;
+		// 	if ($value['pid'] == $pid) {
+		// 		$str .= "<option disabled='disabled' class='disabled' value='".$value['id'].'-'.$value['pid'].'-'.$level."'>{$value['name']}</option>";
+		// 	} else {
+		// 		//return $selected;
+		// 		if ($value['id'] == $selected) {
+		// 			$str .= "<option selected='selected' value='".$value['id'].'-'.$value['pid'].'-'.$level."'>{$value['name']}</option>";
+		// 		} else {
+		// 			$str .= "<option value='".$value['id'].'-'.$value['pid'].'-'.$level."'>{$value['name']}</option>";
+		// 		}
+		// 	}
+		// }
+
+		// return $str .= "</select>";
 	}
 
 	/**
